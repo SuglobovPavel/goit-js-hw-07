@@ -1,19 +1,25 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 const boxForGallery = document.querySelector(".gallery");
+let backdropHref;
+
 let instance; 
 function clickOnKeyCloseModal(e){
    console.log(e.code);
    const visible = instance.visible();
-   if(!visible){
-      window.removeEventListener("keydown", clickOnKeyCloseModal);
-      return;
-   }
+   // if(!visible){
+   //    window.removeEventListener("keydown", clickOnKeyCloseModal);
+   //    return;
+   // }
    if(e.code != "Escape"){
       return;
    }
    instance.close();
    window.removeEventListener("keydown", clickOnKeyCloseModal);
+}
+function clickOnBackdrModal(e){
+   window.removeEventListener("keydown", clickOnKeyCloseModal);
+   backdropHref.removeEventListener("click", clickOnBackdrModal);
 }
 
 function clickOnImage(srcImage){
@@ -23,6 +29,9 @@ function clickOnImage(srcImage){
    instance.show();
    let visibleLaitbox = instance.visible();
    window.addEventListener("keydown", clickOnKeyCloseModal);
+   backdropHref = document.querySelector(".basicLightbox");
+
+   backdropHref.addEventListener("click", clickOnBackdrModal);
 }
 
 function renderGallery(images){
